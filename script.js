@@ -1,5 +1,7 @@
 const gridContainer = document.querySelector("#container");
-const sizeInputField = document.querySelector("#size-input-field");
+const sizeInputField = document.getElementsByName("input")[0];
+const resizeButton = document.getElementById("set");
+const resetButton = document.getElementById("reset");
 let gridArray = [];
 let gridSize = 16;
 
@@ -26,6 +28,19 @@ function enableHover() {
 
 function hoverAction(item) {
     item.srcElement.classList.add("filled");
+    item.srcElement.style.backgroundColor = "#" + Math.floor(Math.random()*16777215).toString(16);;
 }
+
+resizeButton.addEventListener("click", function() {
+    if (parseInt(sizeInputField.value) > 100) {
+        alert("Size cannot be bigger than 100");
+        return;
+    }
+    gridSize = parseInt(sizeInputField.value);
+    sizeInputField.value = "";
+    resizeGrid();
+})
+
+resetButton.addEventListener("click", resizeGrid);
 
 resizeGrid();
